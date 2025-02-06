@@ -28,7 +28,7 @@ function Colors() {
             className="cmini"
             data-testid="colorOption"
             style={{
-              backgroundColor: state.hiddenColor ? color.code : "#000",
+              backgroundColor: color.code,
               cursor: state.hiddenColor ? "pointer" : "not-allowed",
               pointerEvents: state.hiddenColor ? "auto" : "none",
             }}
