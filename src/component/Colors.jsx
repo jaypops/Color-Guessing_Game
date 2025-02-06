@@ -27,7 +27,11 @@ function Colors() {
             key={index}
             className="cmini"
             data-testid="colorOption"
-            style={{ backgroundColor: color.code, cursor: "pointer" }}
+            style={{
+              backgroundColor: color.code,
+              cursor: state.hiddenColor ? "pointer" : "not-allowed",
+              pointerEvents: state.hiddenColor ? "auto" : "none",
+            }}
             onClick={() => handleGuess(color.code)}
           ></span>
         ))}
