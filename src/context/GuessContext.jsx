@@ -65,6 +65,17 @@ function reducer(state, action) {
       };
     }
 
+    case "RESET": {
+      const resetColors = getRandomColors();
+      return {
+        ...state,
+        colors: resetColors,
+        score: 0,
+        targetColor:
+          resetColors[Math.floor(Math.random() * resetColors.length)].code,
+      };
+    }
+
     case "CLEAR_STATUS": {
       return {
         ...state,

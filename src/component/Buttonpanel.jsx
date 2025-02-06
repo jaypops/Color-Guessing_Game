@@ -1,7 +1,7 @@
 import { useGuess } from "../context/GuessContext";
 import PropTypes from "prop-types";
 
-export default function ButtonPanel({ onhandlemove }) {
+export default function ButtonPanel({ onsetPage }) {
   const { dispatch } = useGuess();
 
   const handleOpenRules = () => {
@@ -9,8 +9,9 @@ export default function ButtonPanel({ onhandlemove }) {
   };
 
   const handleStartGame = () => {
-    dispatch({ type: "START_GAME" }); 
-    onhandlemove();
+    dispatch({ type: "START_GAME" });
+    dispatch({ type: "RESET" });
+    onsetPage((move) => !move);
   };
 
   return (
@@ -25,5 +26,5 @@ export default function ButtonPanel({ onhandlemove }) {
   );
 }
 ButtonPanel.propTypes = {
-  onhandlemove: PropTypes.func.isRequired,
+  onsetPage: PropTypes.func.isRequired,
 };

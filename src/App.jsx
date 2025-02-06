@@ -10,21 +10,19 @@ import Back from "./component/Back";
 
 function App() {
   const [page, setPage] = useState(false);
-  function handlemove() {
-    setPage((move) => !move);
-  }
+
   return (
     <GuessProvider>
       {!page ? (
         <div className="Apage">
           <Mainpage />
-          <ButtonPanel onhandlemove={handlemove} />
+          <ButtonPanel onsetPage={setPage} />
           <RulesPopup />
         </div>
       ) : (
         <div className="Amini">
           <div className="Aapp">
-            <Back onhandlemove={handlemove} />
+            <Back onsetPage={setPage} />
             <div className="Aspace">
               <Score />
               <NewGame />
