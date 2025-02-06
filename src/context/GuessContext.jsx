@@ -27,6 +27,7 @@ const initialState = {
   hiddenColor: false,
   isRulesOpen: false,
   gameStatus: "",
+  gameStarted: false,
 };
 
 initialState.targetColor =
@@ -60,6 +61,7 @@ function reducer(state, action) {
           resetColors[Math.floor(Math.random() * resetColors.length)].code,
         gameStatus: "",
         hiddenColor: false,
+        gameStarted: false,
       };
     }
 
@@ -77,11 +79,19 @@ function reducer(state, action) {
       };
     }
 
+    case "START_GAME": {
+      return {
+        ...state,
+        gameStarted: true,
+        hiddenColor: false,
+      };
+    }
+
     case "OPEN_RULES":
-      return { ...state, isRulesOpen: true }
+      return { ...state, isRulesOpen: true };
 
     case "CLOSE_RULES":
-      return { ...state, isRulesOpen: false }
+      return { ...state, isRulesOpen: false };
 
     default:
       throw new Error("Unknown action type");
@@ -101,11 +111,13 @@ function GuessProvider({ children }) {
   }, [state.gameStatus]);
 
   useEffect(() => {
-    const hideTimer = setTimeout(() => {
-      dispatch({ type: "HIDE_TARGET_COLOR" });
-    }, 2000);
-    return () => clearTimeout(hideTimer);
-  }, [state.targetColor]);
+    if (state.gameStarted) {
+      const hideTimer = setTimeout(() => {
+        dispatch({ type: "HIDE_TARGET_COLOR" });
+      }, 2000);
+      return () => clearTimeout(hideTimer);
+    }
+  }, [state.targetColor, state.gameStarted]);
 
   return (
     <GuessContext.Provider value={{ state, dispatch }}>
